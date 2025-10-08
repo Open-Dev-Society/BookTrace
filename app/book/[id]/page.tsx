@@ -100,7 +100,7 @@ export default async function BookPage({ params }: PageProps) {
         {book.author && (
           <div className="flex items-center justify-between">
             <div className="text-sm text-neutral-700">More works by {book.author}</div>
-            <Link href={`/?author=${encodeURIComponent(book.author)}`} className="text-sm underline">Explore →</Link>
+            <Link href={`/library?author=${encodeURIComponent(book.author)}`} className="text-sm underline">Explore →</Link>
           </div>
         )}
         <div>

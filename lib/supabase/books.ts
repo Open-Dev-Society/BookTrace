@@ -84,11 +84,10 @@ export async function fetchBookById(id: string): Promise<Book | null> {
        sources(id,book_id,source_name,url,type,verified,format,added_at)`
     )
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) throw error;
-  if (!data) return null;
-  return mapBookJoinedToBook(data as unknown as BookJoined);
+  return data ? mapBookJoinedToBook(data as unknown as BookJoined) : null;
 }
 
 export async function fetchTopBooks(limit = 10): Promise<Book[]> {

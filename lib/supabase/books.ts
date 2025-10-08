@@ -174,7 +174,7 @@ export async function fetchRelatedByTopics(topics: string[], limit = 10): Promis
     .select(
       `id,title,isbn,author,cover_url,description,published_year,created_at,
        book_labels(label),
-       book_topics(topic),
+       book_topics!inner(topic),
        sources(id,book_id,source_name,url,type,verified,format,added_at)`
     )
     .in("book_topics.topic", topics)

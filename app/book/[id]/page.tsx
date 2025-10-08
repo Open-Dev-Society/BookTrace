@@ -78,7 +78,7 @@ export default async function BookPage({ params }: PageProps) {
                   key={s.id}
                   href={s.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="rounded border bg-white p-3 hover:border-black/40 transition"
                 >
                   <div className="flex items-center justify-between">

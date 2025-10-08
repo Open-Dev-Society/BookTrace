@@ -3,11 +3,11 @@ import { SourceBadge } from "../../../components/SourceBadge";
 import Link from "next/link";
 
 type PageProps = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
 export default async function BookPage({ params }: PageProps) {
-  const { id } = await params;
+  const { id } = params;
   const book = await fetchBookById(id);
   if (!book) {
     return (

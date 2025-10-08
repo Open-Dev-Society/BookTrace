@@ -22,22 +22,15 @@ export default function LibraryPage() {
   const [loading, setLoading] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  const load = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetchBooks({ query, filters, page, pageSize: 50 });
-      setResult(res);
-    } catch (e: any) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  }, [query, filters, page]);
-
   useEffect(() => {
-    load();
-  }, [load]);
-
+    let active = true;
+    setLoading(true);
+    fetchBooks({ query, filters, page, pageSize: 50 })
+      .then((res) => { if (active) setResult(res); })
+      .catch((e: any) => console.error(e))
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [query, filters, page]);
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
     if (query) params.set("q", query); else params.delete("q");

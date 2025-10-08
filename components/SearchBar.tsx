@@ -48,10 +48,18 @@ export function SearchBar({
       return;
     }
     setLoading(true);
-    fetchSuggestions(value).then((res) => {
-      if (!active) return;
-      setItems(res);
-    }).finally(() => active && setLoading(false));
+    fetchSuggestions(value)
+      .then((res) => {
+        if (!active) return;
+        setItems(res);
+      })
+      .catch((err) => {
+        console.error('Suggestions fetch failed:', err);
+        if (active) setItems([]);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
     return () => { active = false; };
   }, [value]);
 
